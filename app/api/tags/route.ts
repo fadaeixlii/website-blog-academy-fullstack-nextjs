@@ -1,6 +1,7 @@
 import { db } from "@/app/_helpers/server";
 import { apiHandler } from "@/app/_helpers/server/api";
 import { tagSchemaValidation } from "@/Models";
+
 import { NextRequest, NextResponse } from "next/server";
 
 const getAllTags = async (req: NextRequest) => {
@@ -15,6 +16,7 @@ const createTag = async (req: NextRequest) => {
   return tag;
 };
 createTag.schema = tagSchemaValidation;
+createTag.admin = true;
 
 const updateTag = async (req: NextRequest) => {
   const url = new URL(req.url);
@@ -25,6 +27,7 @@ const updateTag = async (req: NextRequest) => {
   return tag;
 };
 updateTag.schema = tagSchemaValidation;
+updateTag.admin = true;
 
 const deleteTag = async (req: NextRequest) => {
   const url = new URL(req.url);
@@ -33,6 +36,7 @@ const deleteTag = async (req: NextRequest) => {
   await db.Tags.findByIdAndDelete(id);
   return { message: "Tag deleted" };
 };
+deleteTag.admin = true;
 
 module.exports = apiHandler({
   GET: getAllTags,

@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import mongoose, { Schema, Document } from "mongoose";
 import Joi from "joi";
 
@@ -5,6 +6,7 @@ export interface IUser {
   email: string;
   username: string;
   image: string;
+  password?: string;
   firstname?: string;
   lastname?: string;
   description?: string;
@@ -36,7 +38,8 @@ const userModel = (): mongoose.Model<
   const userSchema: Schema = new Schema({
     email: { type: String, required: true, unique: true },
     username: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String },
+    password: { type: String },
     firstname: { type: String },
     lastname: { type: String },
     description: { type: String },
@@ -50,6 +53,15 @@ const userModel = (): mongoose.Model<
     role: { type: String, enum: ["admin", "user", "author"], required: true },
     slug: { type: String, unique: true, sparse: true },
   });
+
+  userSchema.pre("save", async function (next) {
+    if (this.isModified("password")) {
+      const salt = await bcrypt.genSalt(10);
+      this.password = bcrypt.hash(this.password as string, salt);
+    }
+    next();
+  });
+
   return (
     mongoose.models.Users || mongoose.model<IUserModel>("Users", userSchema)
   );
@@ -60,7 +72,8 @@ export { userModel };
 export const userSchemaValidation = Joi.object({
   email: Joi.string().email().required(),
   username: Joi.string().required(),
-  image: Joi.string().required(),
+  image: Joi.string().optional(),
+  password: Joi.string().min(6).required(),
   firstname: Joi.string().optional(),
   lastname: Joi.string().optional(),
   description: Joi.string().optional(),

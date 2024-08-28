@@ -5,6 +5,7 @@ export { errorHandler };
 
 function errorHandler(err: Error | string) {
   if (typeof err === "string") {
+    console.log(err);
     const is404 = err.toLowerCase().endsWith("not found");
     const is401 = err.toLowerCase().endsWith("token unauthorized");
     const status = is404 ? 404 : is401 ? 401 : 400;

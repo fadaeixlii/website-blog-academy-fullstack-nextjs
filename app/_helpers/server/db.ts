@@ -5,7 +5,10 @@ import { localizedContentModel } from "@/Models/LocalizedContent";
 import { userModel } from "@/Models/User";
 import mongoose from "mongoose";
 
-mongoose.connect(process.env.MONGODB_URI!);
+mongoose.set("strictQuery", true);
+mongoose.connect(process.env.MONGODB_URI!, {
+  dbName: "intEx_website",
+});
 mongoose.Promise = global.Promise;
 
 export const db = {
