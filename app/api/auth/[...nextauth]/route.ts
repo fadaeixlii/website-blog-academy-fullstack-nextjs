@@ -34,22 +34,13 @@ const options: NextAuthOptions = {
         if (!isPasswordValid) {
           throw new Error("Incorrect email or password");
         }
-        const jwtToken = jwt.sign(
-          {
-            id: user._id.toString(),
-            email: user.email,
-            role: user.role,
-          },
-          process.env.JWT_SECRET!, // Make sure this is set in your environment
-          { expiresIn: "1h" } // Adjust expiration as needed
-        );
+
         return {
           id: user._id.toString(),
           name: user.username,
           email: user.email,
           role: user.role,
           slug: user.slug ?? "",
-          jwt: jwtToken,
         } as User;
       },
     }),
@@ -108,10 +99,19 @@ const options: NextAuthOptions = {
           });
 
           if (sessionUser) {
+            const jwtToken = jwt.sign(
+              {
+                id: sessionUser._id.toString(),
+                email: sessionUser.email,
+                role: sessionUser.role,
+              },
+              process.env.JWT_SECRET!,
+              { expiresIn: "1h" }
+            );
             token.id = sessionUser._id.toString();
             token.role = sessionUser.role;
             token.slug = sessionUser.slug ?? "";
-            token.jwt = user.jwt;
+            token.jwt = jwtToken;
           }
         }
         console.log(user);
