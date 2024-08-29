@@ -63,7 +63,7 @@ const deleteCategory = async (req: NextRequest) => {
   return { message: "Category deleted" };
 };
 
-export default apiHandler({
+module.exports = apiHandler({
   GET: getAllCategories,
   POST: createCategory,
   PUT: updateCategory,

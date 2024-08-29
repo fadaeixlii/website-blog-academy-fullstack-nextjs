@@ -1,5 +1,5 @@
+import { AdminLayout } from "@/app/_components/Layout";
 import { ReactNode } from "react";
-import { AdminLayout } from "../_components/Layout";
 
 export const metadata = {
   title: "Admin Dashboard",

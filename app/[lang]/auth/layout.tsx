@@ -1,5 +1,5 @@
+import { AuthLayout } from "@/app/_components/Layout";
 import { ReactNode } from "react";
-import { AuthLayout } from "../_components/Layout";
 
 export const metadata = {
   title: "Auth Page Title",

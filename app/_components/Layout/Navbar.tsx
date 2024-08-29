@@ -18,6 +18,8 @@ import { ModeToggle } from "../mode-toggle";
 import { buttonVariants } from "../ui/button";
 
 import Image from "next/image";
+import { ILangParams } from "@/types/global";
+import { getDictionary } from "@/dictionaries";
 
 interface RouteProps {
   href: string;
@@ -42,8 +44,11 @@ const routeList: RouteProps[] = [
     label: "FAQ",
   },
 ];
+interface NavbarProps extends ILangParams {}
 
-export const Navbar = () => {
+export const Navbar = async ({ params }: NavbarProps) => {
+  const dict = await getDictionary(params.lang);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
@@ -81,15 +86,13 @@ export const Navbar = () => {
                 <Menu
                   className="flex md:hidden h-5 w-5"
                   onClick={() => setIsOpen(true)}
-                >
-                  <span className="sr-only">Menu Icon</span>
-                </Menu>
+                ></Menu>
               </SheetTrigger>
 
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Shadcn/React
+                    {dict.IntEx}
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">

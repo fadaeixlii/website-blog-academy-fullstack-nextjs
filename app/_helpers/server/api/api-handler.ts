@@ -35,6 +35,5 @@ function apiHandler(handler: any) {
       }
     };
   });
-
   return wrappedHandler;
 }
