@@ -10,7 +10,7 @@ export default function AuthComponent() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(""); // Only needed for sign-up
+  const [username, setUsername] = useState("");
   const router = useRouter();
 
   console.log(session);

@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "gRPC/example.js"
+    "gRPC/example.js",
+    "svgr.d.ts",
   ],
   "exclude": ["node_modules"]
 }

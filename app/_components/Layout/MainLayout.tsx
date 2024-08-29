@@ -1,15 +1,26 @@
+"use client";
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const pathname = usePathname();
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-blue-500 p-4">Main Header</header>
-      <main className="flex-grow">{children}</main>
-      <footer className="bg-blue-500 p-4">Main Footer</footer>
-    </div>
+    <>
+      {pathname.includes("admin") || pathname.includes("auth") ? (
+        children
+      ) : (
+        <div className="min-h-screen flex flex-col">
+          <Navbar />
+          <main className="flex-grow container">{children}</main>
+          <Footer />
+        </div>
+      )}
+    </>
   );
 }
