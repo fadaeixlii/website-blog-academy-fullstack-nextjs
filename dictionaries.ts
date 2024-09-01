@@ -1,10 +1,10 @@
-// server-only enforces server-side code execution
-import "server-only";
+import enCommon from "./locale/en/common.json";
+import faCommon from "./locale/fa/common.json";
 
 const dictionaries = {
-  en: () => import("./locale/en/common.json").then((module) => module.default),
-  fa: () => import("./locale/fa/common.json").then((module) => module.default),
+  en: () => enCommon,
+  fa: () => faCommon,
 };
 
-export const getDictionary = async (locale: "en" | "fa") =>
+export const getDictionary = (locale: "en" | "fa") =>
   dictionaries[locale]?.() ?? dictionaries.en();

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import {
   NavigationMenu,
@@ -20,6 +22,8 @@ import { buttonVariants } from "../ui/button";
 import Image from "next/image";
 import { ILangParams } from "@/types/global";
 import { getDictionary } from "@/dictionaries";
+import { useParams } from "next/navigation";
+import { LanguageToggle } from "../language-toggle";
 
 interface RouteProps {
   href: string;
@@ -44,10 +48,11 @@ const routeList: RouteProps[] = [
     label: "FAQ",
   },
 ];
-interface NavbarProps extends ILangParams {}
+interface NavbarProps {}
 
-export const Navbar = async ({ params }: NavbarProps) => {
-  const dict = await getDictionary(params.lang);
+export const Navbar = ({}: NavbarProps) => {
+  const { lang } = useParams();
+  const dict = getDictionary(lang as "en" | "fa");
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -80,6 +85,7 @@ export const Navbar = async ({ params }: NavbarProps) => {
           {/* mobile */}
           <span className="flex md:hidden">
             <ModeToggle />
+            <LanguageToggle />
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2">
@@ -129,6 +135,7 @@ export const Navbar = async ({ params }: NavbarProps) => {
           </nav>
 
           <div className="hidden md:flex gap-2">
+            <LanguageToggle />
             <ModeToggle />
           </div>
         </NavigationMenuList>

@@ -1,6 +1,7 @@
-import { ILangParams } from "@/types/global";
-import { getDictionary } from "../../dictionaries";
+import { getDictionary } from "@/dictionaries";
 import { useDict } from "@/hooks/useDict";
+import { ILangParams } from "@/types/global";
+import { cookies } from "next/headers";
 
 interface HomeProps extends ILangParams {}
 export async function generateStaticParams() {
