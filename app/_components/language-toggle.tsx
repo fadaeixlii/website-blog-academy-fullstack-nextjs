@@ -1,16 +1,12 @@
+"use client";
+
 import { useLanguage } from "@/components/language-provider";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { IR, GB } from "country-flag-icons/react/3x2";
 import { usePathname, useRouter } from "next/navigation";
 
 export function LanguageToggle() {
-  const { setLanguage } = useLanguage();
+  const { setLanguage, language } = useLanguage();
 
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -28,29 +24,32 @@ export function LanguageToggle() {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="ghost">
-          <IR className="h-[1.1rem] w-[1.2rem] ltr:hidden rtl:inline flex items-center justify-center" />
-          <GB className=" h-[1.1rem] w-[1.2rem] rtl:hidden ltr:inline flex items-center justify-center" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => handleChangeLanguage("fa")}
-          className="flex items-center gap-2"
-        >
-          <IR className="size-4 rounded-full object-cover" />
-          فارسی
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => handleChangeLanguage("en")}
-          className="flex items-center gap-2"
-        >
-          <GB className="size-4 rounded-full object-cover" />
-          English
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <ToggleGroup
+      value={language === "fa" ? "fa" : "en"}
+      variant={"outline"}
+      type="single"
+      className="!p-0.5 border  rounded-md h-fit my-auto"
+    >
+      <ToggleGroupItem
+        value="fa"
+        onClick={() => {
+          handleChangeLanguage("fa");
+        }}
+        aria-label="Toggle fa"
+        className="!p-0 aspect-square h-7 border-none"
+      >
+        <IR className="h-4 w-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem
+        value="en"
+        onClick={() => {
+          handleChangeLanguage("en");
+        }}
+        aria-label="Toggle en"
+        className="!p-0 aspect-square h-7 border-none"
+      >
+        <GB className="h-4 w-4" />
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 }

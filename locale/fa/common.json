@@ -735,5 +735,7 @@
   "PartialFillOrder": "جزئی مچ شده",
   "Memo": "تگ",
   "TransactionDetail": "جزئیات تراکنش",
-  "GoToTransactionHistory": "رفتن به تاریخچه تراکنش ها"
+  "GoToTransactionHistory": "رفتن به تاریخچه تراکنش ها",
+  "CreateAnAccount": "یک حساب کاربری ایجاد کنید",
+  "EnterYourEmailBelowToCreateYourAccount": "برای ایجاد حساب کاربری ایمیل خود را در زیر وارد کنید"
 }

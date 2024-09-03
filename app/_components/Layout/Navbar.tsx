@@ -24,6 +24,8 @@ import { ILangParams } from "@/types/global";
 import { getDictionary } from "@/dictionaries";
 import { useParams } from "next/navigation";
 import { LanguageToggle } from "../language-toggle";
+import { NavbarProfile } from "../NavbarProfile";
+import { Profile } from "../Profile";
 
 interface RouteProps {
   href: string;
@@ -84,8 +86,7 @@ export const Navbar = ({}: NavbarProps) => {
 
           {/* mobile */}
           <span className="flex md:hidden">
-            <ModeToggle />
-            <LanguageToggle />
+            <NavbarProfile />
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2">
@@ -95,13 +96,13 @@ export const Navbar = ({}: NavbarProps) => {
                 ></Menu>
               </SheetTrigger>
 
-              <SheetContent side={"left"}>
+              <SheetContent side={"left"} className="h-full flex flex-col">
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
                     {dict.IntEx}
                   </SheetTitle>
                 </SheetHeader>
-                <nav className="flex flex-col justify-center items-center gap-2 mt-4">
+                <nav className="flex flex-col justify-center items-center gap-2 mt-4 ">
                   {routeList.map(({ href, label }: RouteProps) => (
                     <a
                       rel="noreferrer noopener"
@@ -114,6 +115,13 @@ export const Navbar = ({}: NavbarProps) => {
                     </a>
                   ))}
                 </nav>
+                <div
+                  className="w-full flex items-center justify-center gap-4 mt-auto justify-self-end"
+                  dir="ltr"
+                >
+                  <LanguageToggle />
+                  <ModeToggle />
+                </div>
               </SheetContent>
             </Sheet>
           </span>
@@ -137,6 +145,8 @@ export const Navbar = ({}: NavbarProps) => {
           <div className="hidden md:flex gap-2">
             <LanguageToggle />
             <ModeToggle />
+            <NavbarProfile />
+            <Profile />
           </div>
         </NavigationMenuList>
       </NavigationMenu>
